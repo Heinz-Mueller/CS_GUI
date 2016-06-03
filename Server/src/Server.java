@@ -1,14 +1,17 @@
-
+import javax.swing.*;
 import java.net.*;
 import java.io.*;
 import java.text.*;
 import java.util.*;
+
 
 public class Server
 {
 
     private boolean bearbeiteAnfrage(Socket client, Server newserver) throws IOException
     {
+        ServerGUI a = new ServerGUI();
+
         String nachricht;
         Scanner in  = new Scanner(client.getInputStream() );
 
@@ -20,6 +23,7 @@ public class Server
         //BufferedReader vonClient = new BufferedReader(new InputStreamReader(client.getInputStream(), "UTF-8"));
 
         String line;
+        //Pfad abändern, ist nur eine Liste mit Namen
         FileReader fileReader = new FileReader("D:\\IntelliJ_java_projecte\\CS\\namen.txt");
         BufferedReader liste = new BufferedReader(fileReader);
 
@@ -52,6 +56,7 @@ public class Server
         else
         {
             newserver.erstelleAusgabe(nachricht);
+            //a.serverAusgabe(nachricht);
             out.println("ok");
             ende = false;
         }
@@ -64,22 +69,26 @@ public class Server
 
     private void erstelleAusgabe(String text)
     {
+
         SimpleDateFormat formatter = new SimpleDateFormat ("yyyy.MM.dd 'at' HH:mm:ss ");
         Date jetzt = new Date();
         System.out.println(formatter.format(jetzt) + ": " + text);
     }
 
 
-    public static void main(String[] args) throws IOException
+    public static void main(int port) throws IOException
     {
-        if (args.length != 1)
-        {
-            System.err.println("Usage: java Server <port number>");
-            System.exit(1);
-        }
+//        if (args.length != 1)
+//        {
+//            System.err.println("Usage: java Server <port number>");
+//            System.exit(1);
+//        }
 
-        int portnr = Integer.parseInt(args[0]);
-        ServerSocket server = new ServerSocket(portnr);
+        //int portnr = Integer.parseInt(args[0]);
+        //ServerSocket server = new ServerSocket(portnr);
+
+        ServerSocket server = new ServerSocket(port);
+
 
         boolean ende = false;
         Server newserver = new Server(); //Schnittstelle zur "erstelleAusgabe"
