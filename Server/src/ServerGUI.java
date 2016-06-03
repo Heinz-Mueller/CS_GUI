@@ -57,7 +57,6 @@ public class ServerGUI
         });
     }
 
-
     public static void main(String[] args)
     {
         JFrame frame = new JFrame("ServerGUI");
@@ -66,25 +65,4 @@ public class ServerGUI
         frame.pack();
         frame.setVisible(true);
     }
-
-
-    public void serverAusgabe(String nachricht)
-    {
-//        serverAnzeige.setEditable(false);
-//        PrintStream printStream = new PrintStream(new myOutputStream(serverAnzeige));
-//
-//        // keeps reference of standard output stream
-//        standardOut = System.out;
-//
-//        // re-assigns standard output stream and error output stream
-//        System.setOut(printStream);
-//        System.setErr(printStream);
-
-
-        System.out.println("bin ich serverausgae" +nachricht);
-
-        System.out.println("ist gen");
-        standardOut.println("auf Terminal");
-    }
-
 }

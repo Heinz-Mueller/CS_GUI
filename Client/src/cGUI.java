@@ -1,7 +1,9 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.PrintStream;
+
 
 /**
  * Created by Fuse on 28.05.2016.
@@ -14,10 +16,6 @@ public class cGUI extends JFrame implements ActionListener
     private JTextArea clientAusgabe;
     private JButton clientButton;
 
-    private PrintStream standardOut;
-
-
-
     // the Client object
     private Client client;
 
@@ -29,23 +27,8 @@ public class cGUI extends JFrame implements ActionListener
         clientButton.addActionListener(this);
         frame.pack();
         frame.setVisible(true);
+        frame.setSize(600, 800);
         clientAusgabe.append("Willkommen\n\n");
-
-        //clientAusgabe.setEditable(false);
-        //PrintStream printStream = new PrintStream(new myOutputStream(clientAusgabe));
-
-        // keeps reference of standard output stream
-        //standardOut = System.out;
-
-        // re-assigns standard output stream and error output stream
-        //System.setOut(printStream);
-        //System.setErr(printStream);
-
-
-        //System.out.println("ist gen");
-        //standardOut.println("auf Terminal");
-
-
 
 
 //        clientButton.addActionListener(new ActionListener()
@@ -75,9 +58,7 @@ public class cGUI extends JFrame implements ActionListener
 
     void append(String text)
     {
-        System.out.println("append\n");
         clientAusgabe.append(text);
-        clientAusgabe.append("append-Methode\n");
         clientAusgabe.setCaretPosition(clientAusgabe.getText().length() - 1);
     }
 
@@ -136,7 +117,7 @@ public class cGUI extends JFrame implements ActionListener
             //connected = true;
 
             // disable login button
-            //clientButton.setEnabled(false);
+            clientButton.setEnabled(false);
             // disable the Server and Port JTextField
             //ipField.setEditable(false);
             //portField.setEditable(false);
@@ -155,5 +136,4 @@ public class cGUI extends JFrame implements ActionListener
 //        frame.pack();
 //        frame.setVisible(true);
     }
-
 }

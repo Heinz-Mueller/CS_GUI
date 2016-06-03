@@ -10,24 +10,22 @@ public class Server
 
     private boolean bearbeiteAnfrage(Socket client, Server newserver) throws IOException
     {
-        ServerGUI a = new ServerGUI();
-
         String nachricht;
         Scanner in  = new Scanner(client.getInputStream() );
 
         PrintWriter out = new PrintWriter(client.getOutputStream(), true);
         boolean ende = true; //gibt an ob der server beendet werden soll
 
-
         //Der InputStream kann nicht 2 mal abgefangen werden
         //BufferedReader vonClient = new BufferedReader(new InputStreamReader(client.getInputStream(), "UTF-8"));
 
         String line;
         //Pfad abändern, ist nur eine Liste mit Namen
-        FileReader fileReader = new FileReader("D:\\IntelliJ_java_projecte\\CS\\namen.txt");
+        FileReader fileReader = new FileReader("D:\\IntelliJ_java_projecte\\CS_GUI\\namen.txt");
         BufferedReader liste = new BufferedReader(fileReader);
 
         nachricht = in.nextLine();
+        String suchName = nachricht;
 
         boolean istInListe = false;
         while((line = liste.readLine()) != null)
@@ -40,11 +38,11 @@ public class Server
 
         if(istInListe)
         {
-            out.println("Name ist in Liste.\n");
+            out.println(suchName+ " ist in Liste.\n");
         }
         else
         {
-            out.println("Name ist nicht in der Liste.\n");
+            out.println(suchName+ " ist nicht in der Liste.\n");
         }
 
         if(nachricht.equals("exit")) //wenn nicht weitegehen soll
@@ -88,7 +86,6 @@ public class Server
         //ServerSocket server = new ServerSocket(portnr);
 
         ServerSocket server = new ServerSocket(port);
-
 
         boolean ende = false;
         Server newserver = new Server(); //Schnittstelle zur "erstelleAusgabe"
