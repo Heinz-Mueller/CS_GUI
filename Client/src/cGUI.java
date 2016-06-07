@@ -15,6 +15,8 @@ public class cGUI extends JFrame implements ActionListener
     private JPanel clientPanel;
     private JTextArea clientAusgabe;
     private JButton clientButton;
+    private JScrollPane scrollFeld;
+    private JTextField eingabeFeld;
 
     // the Client object
     private Client client;
@@ -24,35 +26,13 @@ public class cGUI extends JFrame implements ActionListener
         JFrame frame = new JFrame("cGUI");
         frame.setContentPane(clientPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         clientButton.addActionListener(this);
         frame.pack();
         frame.setVisible(true);
-        frame.setSize(600, 800);
+        frame.setSize(600, 400);
         clientAusgabe.append("Willkommen\n\n");
-
-
-//        clientButton.addActionListener(new ActionListener()
-//        {
-//            @Override
-//            public void actionPerformed(ActionEvent e)
-//            {
-//                try
-//                {
-//                    // disable login button
-//                    //clientButton.setEnabled(false);
-//
-//                    //clientAusgabe.append("TEST");
-//                    String ip;
-//                    int port2;
-//                    port2 = Integer.parseInt(portField.getText());
-//                    ip = ipField.getText();
-//                    Client.main(ip, port2);
-//                }
-//                catch (Exception e1){
-//                    JOptionPane.showMessageDialog(null, "Falsche Eingabe!");
-//                }
-//            }
-//        });
+        eingabeFeld.requestFocus();
     }
 
 
@@ -67,12 +47,6 @@ public class cGUI extends JFrame implements ActionListener
     void connectionFailed()
     {
         clientButton.setEnabled(true);
-        // reset port number and host name as a construction time
-//        tfPort.setText("" + defaultPort);
-//        tfServer.setText(defaultHost);
-//        // let the user change them
-//        tfServer.setEditable(false);
-//        tfPort.setEditable(false);
 //        connected = false;
     }
 
@@ -89,25 +63,25 @@ public class cGUI extends JFrame implements ActionListener
     public void actionPerformed(ActionEvent e)
     {
         Object o = e.getSource();
-        // ok it is coming from the JTextField
-//        if()
-//        {
-//            // just have to send the message
-//            client.sendMessage(new ChatMessage(ChatMessage.MESSAGE, tf.getText()));
-//            tf.setText("");
-//            return;
-//        }
-
         if(o == clientButton)
         {
             clientAusgabe.append("Verbinde wurde gedrückt\n");
             String ip;
-            int port2;
-            port2 = Integer.parseInt(portField.getText());
-            ip = ipField.getText();
+            int port;
+
+            try
+            {
+                port = Integer.parseInt(portField.getText().trim());
+            } catch(Exception er)
+            {
+                clientAusgabe.append("Fehler bei der Port-Eingabe\n");
+                return;
+            }
+
+            ip = ipField.getText().trim();
 
             // try creating a new Client with GUI
-            client = new Client(ip, port2, this);
+            client = new Client(ip, port, this);
             // test if we can start the Client
             if(!client.start())
             {
@@ -119,21 +93,15 @@ public class cGUI extends JFrame implements ActionListener
             // disable login button
             clientButton.setEnabled(false);
             // disable the Server and Port JTextField
-            //ipField.setEditable(false);
-            //portField.setEditable(false);
+            ipField.setEditable(false);
+            portField.setEditable(false);
             // Action listener for when the user enter a message
-            //eingabeFeld.addActionListener(this);
+            eingabeFeld.addActionListener(this);
         }
     }
-
 
     public static void main(String[] args)
     {
         new cGUI();
-//        JFrame frame = new JFrame("cGUI");
-//        frame.setContentPane(new cGUI().clientPanel);
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame.pack();
-//        frame.setVisible(true);
     }
 }

@@ -12,57 +12,106 @@ import java.io.PrintStream;
 
 
 
-public class ServerGUI
+public class ServerGUI extends JFrame implements ActionListener
 {
-    private JTextField textField1;
+    private JTextField portFeld;
     private JButton starteServerButton;
     private JPanel serverPanel;
     private JTextArea serverAnzeige;
 
-    private PrintStream standardOut;
+    //private PrintStream standardOut;
+
+    // my server
+    private Server server;
 
     public ServerGUI()
     {
-        serverAnzeige.setEditable(false);
-        PrintStream printStream = new PrintStream(new myOutputStream(serverAnzeige));
-
-        // keeps reference of standard output stream
-      //  standardOut = System.out;
-
-        // re-assigns standard output stream and error output stream
-        // System.setOut(printStream);
-       // System.setErr(printStream);
-
-        //standardOut.println("auf Terminal");
-
-
-
-        starteServerButton.addActionListener(new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                try
-                {
-                    int port;
-                    port = Integer.parseInt(textField1.getText());
-                    Server.main(port);
-                    serverAnzeige.append("hallop");
-                    //JOptionPane.showMessageDialog(null, "Server wurde gestartet!");
-                }
-                catch (Exception e1){
-                    JOptionPane.showMessageDialog(null, "Falsche Eingabe!");
-                }
-            }
-        });
-    }
-
-    public static void main(String[] args)
-    {
         JFrame frame = new JFrame("ServerGUI");
-        frame.setContentPane(new ServerGUI().serverPanel);
+        frame.setContentPane(serverPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        starteServerButton.addActionListener(this);
         frame.pack();
         frame.setVisible(true);
+        frame.setSize(600, 400);
+        serverAnzeige.append("Willkommen\n\n");
     }
+
+/*
+        Für die myOutoutStream Klasse
+        PrintStream printStream = new PrintStream(new myOutputStream(serverAnzeige));
+        // keeps reference of standard output stream
+        standardOut = System.out;
+
+        // re-assigns standard output stream and error output stream
+        System.setOut(printStream);
+        System.setErr(printStream);
+
+*/
+
+    void append(String text)
+    {
+        serverAnzeige.append(text);
+        serverAnzeige.setCaretPosition(serverAnzeige.getText().length() - 1);
+    }
+
+    // called by the GUI is the connection failed
+    // we reset our buttons, label, textfield
+    void connectionFailed()
+    {
+        starteServerButton.setEnabled(true);
+    }
+
+    public void ausgabe(String text)
+    {
+        System.out.println("AUSGABE auf terminal?!\n");
+        serverAnzeige.append("Ausgabe! in GUI\n");
+        serverAnzeige.append(text);
+    }
+
+    /*
+    * Button clicked
+    */
+    public void actionPerformed(ActionEvent e)
+    {
+
+        Object o = e.getSource();
+
+        if(o == starteServerButton)
+        {
+            serverAnzeige.append("Starte Server wurde gedückt\n");
+            int port;
+
+            try
+            {
+                port = Integer.parseInt(portFeld.getText().trim());
+            } catch(Exception er)
+            {
+                serverAnzeige.append("Fehler bei der Port-Eingabe\n");
+                return;
+            }
+
+            // neuen Server erzeugen
+            server = new Server(port, this);
+            // test if we can start the Client
+            if(!server.start())
+            {
+                System.out.println("ohohoh");
+                serverAnzeige.append("oh nein");
+                return;
+            }
+
+            // disable login button
+            starteServerButton.setEnabled(false);
+            // disable Port JTextField
+            portFeld.setEditable(false);
+        }
+    }
+
+    //server GUI starten
+    public static void main(String[] args)
+    {
+        new ServerGUI();
+    }
+
 }

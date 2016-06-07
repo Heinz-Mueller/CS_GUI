@@ -110,13 +110,17 @@ public class Client
 
     private void erstelleAusgabe(String text)
     {
-        String a = text;
         SimpleDateFormat formatter = new SimpleDateFormat ("yyyy.MM.dd 'at' HH:mm:ss ");
         Date jetzt = new Date();
-
-        System.out.println(formatter.format(jetzt) + ": " + text);
-        cg.append(formatter.format(jetzt) + ": " + text);
-        cg.append("\n");
+        //wenn keine GUI dann Terminal Ausgabe
+        if(cg == null)
+        {
+            System.out.println(formatter.format(jetzt) + ": " + text);
+        }
+        else
+        {
+            cg.append(formatter.format(jetzt) + ": " + text +"\n");
+        }
     }
 
 

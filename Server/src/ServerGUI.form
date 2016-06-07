@@ -8,13 +8,15 @@
     <properties/>
     <border type="none"/>
     <children>
-      <component id="61892" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+      <component id="61892" class="javax.swing.JTextField" binding="portFeld">
         <constraints>
           <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <text value="1500"/>
+        </properties>
       </component>
       <vspacer id="15c29">
         <constraints>
@@ -42,14 +44,19 @@
           <grid row="1" column="2" row-span="4" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="3" use-parent-layout="false"/>
         </constraints>
       </vspacer>
-      <component id="6570c" class="javax.swing.JTextArea" binding="serverAnzeige">
+      <scrollpane id="768ae">
         <constraints>
-          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="50"/>
-          </grid>
+          <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties/>
-      </component>
+        <border type="none"/>
+        <children>
+          <component id="6570c" class="javax.swing.JTextArea" binding="serverAnzeige">
+            <constraints/>
+            <properties/>
+          </component>
+        </children>
+      </scrollpane>
     </children>
   </grid>
 </form>
