@@ -2,6 +2,8 @@
  * Created by Fuse on 26.05.2016.
  */
 
+import javax.swing.*;
+import javax.swing.text.BadLocationException;
 import java.net.*;
 import java.io.*;
 import java.text.*;
@@ -82,27 +84,26 @@ public class Client
         }
         else
         {
-            while(eingabe < 0 || eingabe > 2)
+            try
             {
-                //Auswahlmenue zeigen bis eingabe richtig
-                try
-                {
-                    cg.append("\n");
-                    cg.append("---------------------\n");
-                    cg.append("Menue:\n");
-                    cg.append("0: Client beenden\n");
-                    cg.append("1: Namen eingeben\n");
-                    cg.append("2: Server beenden\n");
-                    cg.append("---------------------\n");
-                    cg.append("Was moechten Sie tun?: \n");
+                cg.append("\n");
+                cg.append("---------------------\n");
+                cg.append("Menue:\n");
+                cg.append("0: Client beenden\n");
+                cg.append("1: Namen eingeben\n");
+                cg.append("2: Server beenden\n");
+                cg.append("---------------------\n");
+                cg.append("Was moechten Sie tun?: \n");
 
-                    eingabe = Integer.parseInt(br.readLine());
+//             Scanner sc = new Scanner(System.in);
+//             eingabe = sc.nextByte();
+
+                eingabe = Integer.parseInt(br.readLine());
                 }
                 catch(Exception e)
                 {
-                    System.out.println("Fehlerhafte Eingabe!");
+                    //System.out.println("Fehlerhafte Eingabe!");
                 }
-            }
             return eingabe;
         }
     }
@@ -249,34 +250,57 @@ public class Client
         String nachricht;
         //Client newclient = new Client(); //Schnittstelle
 
+
         //Dient zum einlesen der nachricht-eingabe des Benutzers
         InputStreamReader isr = new InputStreamReader(System.in);
         BufferedReader br = new BufferedReader(isr);
+
+        public void knopf()
+        {
+        }
+
+
         public void run()
         {
             while(true)
             {
                 try
                 {
-                    while (benutzerWahl == 1 || benutzerWahl == 2)
-                    {
-                        benutzerWahl = zeigeMenue();
-                        System.out.println("> "+benutzerWahl);
-                        if(benutzerWahl == 1)
-                        {
-                            Socket server = new Socket(ip, port);
+                    //benutzerWahl = zeigeMenue();
+                    //System.out.println("> "+benutzerWahl);
+                    zeigeMenue();
 
-                            Scanner in  = new Scanner( server.getInputStream() );
-                            PrintWriter out = new PrintWriter( server.getOutputStream(), true);
+//                    cg.append("\n");
+//                    cg.append("---------------------\n");
+//                    cg.append("Menue:\n");
+//                    cg.append("0: Client beenden\n");
+//                    cg.append("1: Namen eingeben\n");
+//                    cg.append("2: Server beenden\n");
+//                    cg.append("---------------------\n");
+//                    cg.append("Was moechten Sie tun?: \n");
 
-                            //System.out.println("Namen eingeben: ");
-                            cg.append("Namen eingeben (auf Terminal): \n");
-                            nachricht = br.readLine();
-                            out.println(nachricht);
+                    Socket server = new Socket(ip, port);
 
-                            erstelleAusgabe(in.nextLine());
-                            out.close();
-                            server.close();
+                    Scanner in  = new Scanner( server.getInputStream() );
+                    PrintWriter out = new PrintWriter( server.getOutputStream(), true);
+
+                    //System.out.println("Namen eingeben: ");
+                    //cg.append("Namen eingeben (auf Terminal): \n");
+                    //cg.append(cg.eingabeFeld.getText() + "\n");
+
+//                    sInput = new ObjectInputStream(server.getInputStream());
+//                    String msg = (String) sInput.readObject();
+
+                    String msg1 = cg.eingabeFeld.getText();
+                    cg.append(msg1);
+                    out.println(msg1);
+
+                    //nachricht = br.readLine();
+                    //out.println(nachricht);
+
+                    erstelleAusgabe(in.nextLine());
+                    out.close();
+                    server.close();
 
 //                            //Socket server = new Socket(ip, port);
 //
@@ -289,25 +313,7 @@ public class Client
 //                            out.println(msg);
 //                            sOutput.writeObject(msg);
 //
-//                            erstelleAusgabe(in.nextLine());
-                        }
-                    }
-                    // wait for messages from user
-                    //System.out.println("> ");
-                    //Scanner scan = new Scanner(System.in);
-                    //String eingabe = scan.toString();
 
-                    String msg = (String) sInput.readObject();
-                    // if console mode print the message and add back the prompt
-                    if(cg == null)
-                    {
-                        System.out.println(msg);
-                        System.out.print("> ");
-                    }
-                    else
-                    {
-                        cg.append(msg);
-                    }
                 }
                 catch(IOException e) {
                     display("Server has close the connection: " + e);
@@ -316,9 +322,10 @@ public class Client
                     break;
                 }
                 // can't happen with a String object but need the catch anyhow
-                catch(ClassNotFoundException e2) {
-                }
+//                catch(ClassNotFoundException e2) {
+//                }
             }
         }
     }
+
 }

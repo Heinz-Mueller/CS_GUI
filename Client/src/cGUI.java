@@ -16,7 +16,9 @@ public class cGUI extends JFrame implements ActionListener
     private JTextArea clientAusgabe;
     private JButton clientButton;
     private JScrollPane scrollFeld;
-    private JTextField eingabeFeld;
+    public JTextField eingabeFeld;
+    public JButton test;
+    //private JTextField eingabeFeld;
 
     // the Client object
     private Client client;
@@ -27,12 +29,16 @@ public class cGUI extends JFrame implements ActionListener
         frame.setContentPane(clientPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        eingabeFeld.addActionListener(this);
+        test.addActionListener(this);
+
         clientButton.addActionListener(this);
         frame.pack();
         frame.setVisible(true);
         frame.setSize(600, 400);
         clientAusgabe.append("Willkommen\n\n");
-        eingabeFeld.requestFocus();
+        //eingabeFeld.requestFocus();
+        //frame.getRootPane().setDefaultButton(test);
     }
 
 
@@ -95,10 +101,21 @@ public class cGUI extends JFrame implements ActionListener
             // disable the Server and Port JTextField
             ipField.setEditable(false);
             portField.setEditable(false);
+
             // Action listener for when the user enter a message
             eingabeFeld.addActionListener(this);
+            test.addActionListener(this);
+        }
+        if(o == test)
+        {
+
         }
     }
+
+
+
+
+
 
     public static void main(String[] args)
     {
