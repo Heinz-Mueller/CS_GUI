@@ -2,13 +2,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.io.PrintStream;
+
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.*;
 
 
 /**
  * Created by Fuse on 28.05.2016.
  */
-public class cGUI extends JFrame implements ActionListener
+public class cGUI extends JFrame implements ActionListener, KeyListener, WindowListener
 {
     private JTextField ipField;
     private JTextField portField;
@@ -30,6 +35,8 @@ public class cGUI extends JFrame implements ActionListener
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         eingabeFeld.addActionListener(this);
+        eingabeFeld.addKeyListener(this);
+
         test.addActionListener(this);
 
         clientButton.addActionListener(this);
@@ -38,7 +45,12 @@ public class cGUI extends JFrame implements ActionListener
         frame.setSize(600, 400);
         clientAusgabe.append("Willkommen\n\n");
         //eingabeFeld.requestFocus();
-        //frame.getRootPane().setDefaultButton(test);
+
+
+        addWindowListener(this);
+        addKeyListener(this);
+        frame.addWindowListener(this);
+        frame.addKeyListener(this);
     }
 
 
@@ -103,15 +115,65 @@ public class cGUI extends JFrame implements ActionListener
             portField.setEditable(false);
 
             // Action listener for when the user enter a message
-            eingabeFeld.addActionListener(this);
-            test.addActionListener(this);
+            //eingabeFeld.addActionListener(this);
+            //test.addActionListener(this);
         }
         if(o == test)
         {
+            String msg2 = eingabeFeld.getText();
+            clientAusgabe.append(msg2 +"\n");
+            //notifyAll();
 
+//            try
+//            {
+//                System.in.read();
+//            } catch (IOException e1)
+//            {
+//                e1.printStackTrace();
+//            }
+
+            //out.println(msg1);
         }
     }
 
+
+    // KeyListener-Methoden
+    public void keyPressed(KeyEvent e)
+    {
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE)
+        {
+            System.exit(0);
+            clientAusgabe.append("ohmann");
+            System.out.println("ohmann");
+            System.exit(0);
+        }
+    }
+
+    public void keyReleased(KeyEvent e) {
+    }
+    public void keyTyped(KeyEvent e) {
+    }
+
+
+
+    // Window-Listener-Methoden
+    public void windowClosing(WindowEvent e)
+    {
+        System.exit(0);
+    }
+
+    public void windowActivated(WindowEvent e) {
+    }
+    public void windowClosed(WindowEvent e) {
+    }
+    public void windowDeactivated(WindowEvent e) {
+    }
+    public void windowDeiconified(WindowEvent e) {
+    }
+    public void windowIconified(WindowEvent e) {
+    }
+    public void windowOpened(WindowEvent e) {
+    }
 
 
 
@@ -121,4 +183,8 @@ public class cGUI extends JFrame implements ActionListener
     {
         new cGUI();
     }
+
+
+
+
 }

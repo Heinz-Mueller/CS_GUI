@@ -223,7 +223,10 @@ public class Client
 //        }
 
         // creates the Thread to listen from the server
-        new ListenFromServer().start();
+        //new ListenFromServer().start();
+
+        Thread a = new ListenFromServer();
+        a.start();
         // Send our username to the server this is the only message that we
         // will send as a String. All other messages will be ChatMessage objects
 //        try
@@ -252,11 +255,45 @@ public class Client
 
 
         //Dient zum einlesen der nachricht-eingabe des Benutzers
-        InputStreamReader isr = new InputStreamReader(System.in);
-        BufferedReader br = new BufferedReader(isr);
+        //InputStreamReader isr = new InputStreamReader(System.in);
+        //BufferedReader br = new BufferedReader(isr);
 
         public void knopf()
         {
+//            try
+//            {
+//                Thread.sleep(1000);
+//            } catch (InterruptedException e)
+//            {
+//                e.printStackTrace();
+//            }
+
+            //interrupt();
+
+//            try
+//            {
+//                wait(10);
+//            } catch (InterruptedException e)
+//            {
+//                e.printStackTrace();
+//            }
+
+
+//            try
+//            {
+//                System.in.read(); // blockiert bis RETURN
+//            } catch (IOException e)
+//            {
+//                e.printStackTrace();
+//            }
+
+            try
+            {
+                System.in.read();
+            } catch (IOException e)
+            {
+                e.printStackTrace();
+            }
         }
 
 
@@ -268,21 +305,24 @@ public class Client
                 {
                     //benutzerWahl = zeigeMenue();
                     //System.out.println("> "+benutzerWahl);
-                    zeigeMenue();
+                    //zeigeMenue();
 
 //                    cg.append("\n");
-//                    cg.append("---------------------\n");
-//                    cg.append("Menue:\n");
-//                    cg.append("0: Client beenden\n");
-//                    cg.append("1: Namen eingeben\n");
-//                    cg.append("2: Server beenden\n");
-//                    cg.append("---------------------\n");
+                    cg.append("---------------------\n");
+                    cg.append("Menue:\n");
+                    cg.append("0: Client beenden\n");
+                    cg.append("1: Namen eingeben\n");
+                    cg.append("2: Server beenden\n");
+                    cg.append("---------------------\n");
 //                    cg.append("Was moechten Sie tun?: \n");
+
 
                     Socket server = new Socket(ip, port);
 
                     Scanner in  = new Scanner( server.getInputStream() );
                     PrintWriter out = new PrintWriter( server.getOutputStream(), true);
+
+
 
                     //System.out.println("Namen eingeben: ");
                     //cg.append("Namen eingeben (auf Terminal): \n");
@@ -292,8 +332,10 @@ public class Client
 //                    String msg = (String) sInput.readObject();
 
                     String msg1 = cg.eingabeFeld.getText();
-                    cg.append(msg1);
+                    //cg.append(msg1);
                     out.println(msg1);
+
+                    knopf();
 
                     //nachricht = br.readLine();
                     //out.println(nachricht);
@@ -301,6 +343,8 @@ public class Client
                     erstelleAusgabe(in.nextLine());
                     out.close();
                     server.close();
+
+
 
 //                            //Socket server = new Socket(ip, port);
 //
