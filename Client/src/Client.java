@@ -125,6 +125,31 @@ public class Client
     }
 
 
+    private void test(String ip, int port) throws IOException
+    {
+        //Dient zum einlesen der nachricht-eingabe des Benutzers
+        InputStreamReader isr = new InputStreamReader(System.in);
+        BufferedReader br = new BufferedReader(isr);
+
+        int eingabe = 1;
+        String nachricht;
+        Client newclient = new Client(); //Schnittstelle
+        Socket server = new Socket(ip, port);
+
+        Scanner in  = new Scanner( server.getInputStream() );
+        PrintWriter out = new PrintWriter( server.getOutputStream(), true);
+
+        System.out.println("Namen eingeben: ");
+        nachricht = br.readLine();
+        out.println(nachricht);
+
+        newclient.erstelleAusgabe(in.nextLine());
+        out.close();
+        server.close();
+    }
+
+
+
     public static void main(String ip, int port) throws IOException
     {
         //if(args.length == 2)
@@ -225,8 +250,10 @@ public class Client
         // creates the Thread to listen from the server
         //new ListenFromServer().start();
 
+        cg.aktiv = true;
         Thread a = new ListenFromServer();
         a.start();
+
         // Send our username to the server this is the only message that we
         // will send as a String. All other messages will be ChatMessage objects
 //        try
@@ -260,19 +287,19 @@ public class Client
 
         public void knopf()
         {
-//            try
-//            {
-//                Thread.sleep(1000);
-//            } catch (InterruptedException e)
-//            {
-//                e.printStackTrace();
-//            }
+            try
+            {
+                Thread.sleep(1000);
+            } catch (InterruptedException e)
+            {
+                e.printStackTrace();
+            }
 
             //interrupt();
 
 //            try
 //            {
-//                wait(10);
+//                wait();
 //            } catch (InterruptedException e)
 //            {
 //                e.printStackTrace();
@@ -287,19 +314,19 @@ public class Client
 //                e.printStackTrace();
 //            }
 
-            try
-            {
-                System.in.read();
-            } catch (IOException e)
-            {
-                e.printStackTrace();
-            }
+//            try
+//            {
+//                System.in.read();
+//            } catch (IOException e)
+//            {
+//                e.printStackTrace();
+//            }
         }
 
 
         public void run()
         {
-            while(true)
+            if(cg.aktiv)
             {
                 try
                 {
@@ -335,7 +362,7 @@ public class Client
                     //cg.append(msg1);
                     out.println(msg1);
 
-                    knopf();
+                    //knopf();
 
                     //nachricht = br.readLine();
                     //out.println(nachricht);
@@ -343,6 +370,8 @@ public class Client
                     erstelleAusgabe(in.nextLine());
                     out.close();
                     server.close();
+
+                    cg.aktiv = false;
 
 
 
@@ -363,7 +392,7 @@ public class Client
                     display("Server has close the connection: " + e);
                     if(cg != null)
                         cg.connectionFailed();
-                    break;
+                    //break;
                 }
                 // can't happen with a String object but need the catch anyhow
 //                catch(ClassNotFoundException e2) {

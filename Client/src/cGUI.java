@@ -28,6 +28,9 @@ public class cGUI extends JFrame implements ActionListener, KeyListener, WindowL
     // the Client object
     private Client client;
 
+    //
+    public boolean aktiv;
+
     public cGUI()
     {
         JFrame frame = new JFrame("cGUI");
@@ -46,11 +49,6 @@ public class cGUI extends JFrame implements ActionListener, KeyListener, WindowL
         clientAusgabe.append("Willkommen\n\n");
         //eingabeFeld.requestFocus();
 
-
-        addWindowListener(this);
-        addKeyListener(this);
-        frame.addWindowListener(this);
-        frame.addKeyListener(this);
     }
 
 
@@ -107,6 +105,7 @@ public class cGUI extends JFrame implements ActionListener, KeyListener, WindowL
             }
 
             //connected = true;
+            //aktiv = true;
 
             // disable login button
             clientButton.setEnabled(false);
@@ -122,6 +121,8 @@ public class cGUI extends JFrame implements ActionListener, KeyListener, WindowL
         {
             String msg2 = eingabeFeld.getText();
             clientAusgabe.append(msg2 +"\n");
+            //aktiv = true;
+            client.start();
             //notifyAll();
 
 //            try
@@ -140,12 +141,11 @@ public class cGUI extends JFrame implements ActionListener, KeyListener, WindowL
     // KeyListener-Methoden
     public void keyPressed(KeyEvent e)
     {
-        if (e.getKeyCode() == KeyEvent.VK_ESCAPE)
+        if (e.getKeyCode() == KeyEvent.VK_ENTER)
         {
-            System.exit(0);
-            clientAusgabe.append("ohmann");
-            System.out.println("ohmann");
-            System.exit(0);
+            client.start();
+            //clientAusgabe.append("ohmann");
+            //System.exit(0);
         }
     }
 
