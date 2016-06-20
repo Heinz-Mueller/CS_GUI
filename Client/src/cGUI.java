@@ -134,6 +134,7 @@ public class cGUI extends JFrame implements ActionListener, KeyListener, WindowL
 //            }
 
             //out.println(msg1);
+            //eingabeFeld.setText("");
         }
     }
 

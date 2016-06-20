@@ -313,14 +313,6 @@ public class Client
 //            {
 //                e.printStackTrace();
 //            }
-
-//            try
-//            {
-//                System.in.read();
-//            } catch (IOException e)
-//            {
-//                e.printStackTrace();
-//            }
         }
 
 
@@ -334,15 +326,9 @@ public class Client
                     //System.out.println("> "+benutzerWahl);
                     //zeigeMenue();
 
-//                    cg.append("\n");
                     cg.append("---------------------\n");
-                    cg.append("Menue:\n");
-                    cg.append("0: Client beenden\n");
-                    cg.append("1: Namen eingeben\n");
-                    cg.append("2: Server beenden\n");
+                    cg.append("Suchenamen einegeben\n");
                     cg.append("---------------------\n");
-//                    cg.append("Was moechten Sie tun?: \n");
-
 
                     Socket server = new Socket(ip, port);
 
@@ -370,6 +356,8 @@ public class Client
                     erstelleAusgabe(in.nextLine());
                     out.close();
                     server.close();
+
+                    cg.eingabeFeld.setText("");
 
                     cg.aktiv = false;
 
