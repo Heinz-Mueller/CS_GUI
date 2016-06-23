@@ -31,7 +31,6 @@ public class Client
     *  Constructor called by console mode
     *  server: the server address
     *  port: the port number
-    *  username: the username
     */
     Client(String ip, int port)
     {
@@ -52,7 +51,7 @@ public class Client
     }
 
 
-    private int zeigeMenue()
+    private int zeigeMenue() //wird nicht benutzt
     {
         //Scanner liste eingabe des Benutzers ein
         InputStreamReader isr = new InputStreamReader(System.in);
@@ -95,19 +94,15 @@ public class Client
                 cg.append("---------------------\n");
                 cg.append("Was moechten Sie tun?: \n");
 
-//             Scanner sc = new Scanner(System.in);
-//             eingabe = sc.nextByte();
-
                 eingabe = Integer.parseInt(br.readLine());
                 }
                 catch(Exception e)
                 {
-                    //System.out.println("Fehlerhafte Eingabe!");
+                    System.out.println("Fehlerhafte Eingabe!");
                 }
             return eingabe;
         }
     }
-
 
     private void erstelleAusgabe(String text)
     {
@@ -149,8 +144,7 @@ public class Client
     }
 
 
-
-    public static void main(String ip, int port) throws IOException
+    public static void main(String ip, int port) throws IOException //wird in der gui nicht aufgerufen
     {
         //if(args.length == 2)
         if(port > 1000)
@@ -219,52 +213,11 @@ public class Client
         }
     }
 
-    public boolean start() //throws IOException
+    public boolean start()
     {
-        // try to connect to the server
-//        try
-//        {
-//            socket = new Socket(ip, port);
-//            display("new Socket");
-//        }
-//        // if it failed not much I can so
-//        catch (Exception ec)
-//        {
-//            display("Error connectiong to server:" + ec);
-//            return false;
-//        }
-
-//        String msg = "Verbindung hergestellt zu: " + socket.getInetAddress() + ":" + socket.getPort();
-//        display(msg);
-
-//        try
-//        {
-//            sInput = new ObjectInputStream(socket.getInputStream());
-//            sOutput = new ObjectOutputStream(socket.getOutputStream());
-//        } catch (IOException eIO)
-//        {
-//            display("Exception creating new Input/output Streams: " + eIO);
-//            return false;
-//        }
-
-        // creates the Thread to listen from the server
-        //new ListenFromServer().start();
-
         cg.aktiv = true;
         Thread a = new ListenFromServer();
         a.start();
-
-        // Send our username to the server this is the only message that we
-        // will send as a String. All other messages will be ChatMessage objects
-//        try
-//        {
-//            sOutput.writeObject("DICKES DING");
-//        } catch (IOException eIO)
-//        {
-//            display("Exception doing login : " + eIO);
-//            //disconnect();
-//            return false;
-//        }
         // success we inform the caller that it worked
         return true;
     }
@@ -276,15 +229,6 @@ public class Client
     */
     class ListenFromServer extends Thread
     {
-        int benutzerWahl = 1;
-        String nachricht;
-        //Client newclient = new Client(); //Schnittstelle
-
-
-        //Dient zum einlesen der nachricht-eingabe des Benutzers
-        //InputStreamReader isr = new InputStreamReader(System.in);
-        //BufferedReader br = new BufferedReader(isr);
-
         public void knopf()
         {
             try
@@ -294,27 +238,7 @@ public class Client
             {
                 e.printStackTrace();
             }
-
-            //interrupt();
-
-//            try
-//            {
-//                wait();
-//            } catch (InterruptedException e)
-//            {
-//                e.printStackTrace();
-//            }
-
-
-//            try
-//            {
-//                System.in.read(); // blockiert bis RETURN
-//            } catch (IOException e)
-//            {
-//                e.printStackTrace();
-//            }
         }
-
 
         public void run()
         {
@@ -322,10 +246,6 @@ public class Client
             {
                 try
                 {
-                    //benutzerWahl = zeigeMenue();
-                    //System.out.println("> "+benutzerWahl);
-                    //zeigeMenue();
-
                     cg.append("---------------------\n");
                     cg.append("Suchenamen einegeben\n");
                     cg.append("---------------------\n");
@@ -335,23 +255,8 @@ public class Client
                     Scanner in  = new Scanner( server.getInputStream() );
                     PrintWriter out = new PrintWriter( server.getOutputStream(), true);
 
-
-
-                    //System.out.println("Namen eingeben: ");
-                    //cg.append("Namen eingeben (auf Terminal): \n");
-                    //cg.append(cg.eingabeFeld.getText() + "\n");
-
-//                    sInput = new ObjectInputStream(server.getInputStream());
-//                    String msg = (String) sInput.readObject();
-
                     String msg1 = cg.eingabeFeld.getText();
-                    //cg.append(msg1);
                     out.println(msg1);
-
-                    //knopf();
-
-                    //nachricht = br.readLine();
-                    //out.println(nachricht);
 
                     erstelleAusgabe(in.nextLine());
                     out.close();
@@ -360,20 +265,6 @@ public class Client
                     cg.eingabeFeld.setText("");
 
                     cg.aktiv = false;
-
-
-
-//                            //Socket server = new Socket(ip, port);
-//
-//                            Scanner in  = new Scanner( socket.getInputStream() );
-//                            PrintWriter out = new PrintWriter( socket.getOutputStream(), true);
-//
-//                            System.out.println("Namen eingeben: ");
-//                            String msg = (String) sInput.readObject();
-//
-//                            out.println(msg);
-//                            sOutput.writeObject(msg);
-//
 
                 }
                 catch(IOException e) {

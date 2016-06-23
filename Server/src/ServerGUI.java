@@ -1,10 +1,6 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.InputMethodEvent;
-import java.awt.event.InputMethodListener;
-
-import java.io.PrintStream;
 
 /**
  * Created by Fuse on 28.05.2016.
@@ -18,8 +14,6 @@ public class ServerGUI extends JFrame implements ActionListener
     private JButton starteServerButton;
     private JPanel serverPanel;
     private JTextArea serverAnzeige;
-
-    //private PrintStream standardOut;
 
     // my server
     private Server server;
@@ -37,17 +31,6 @@ public class ServerGUI extends JFrame implements ActionListener
         serverAnzeige.append("Willkommen\n\n");
     }
 
-/*
-        Für die myOutoutStream Klasse
-        PrintStream printStream = new PrintStream(new myOutputStream(serverAnzeige));
-        // keeps reference of standard output stream
-        standardOut = System.out;
-
-        // re-assigns standard output stream and error output stream
-        System.setOut(printStream);
-        System.setErr(printStream);
-
-*/
 
     void append(String text)
     {
@@ -113,5 +96,4 @@ public class ServerGUI extends JFrame implements ActionListener
     {
         new ServerGUI();
     }
-
 }

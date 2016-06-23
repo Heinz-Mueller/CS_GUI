@@ -1,4 +1,3 @@
-import javax.swing.*;
 import java.net.*;
 import java.io.*;
 import java.text.*;
@@ -57,7 +56,7 @@ public class Server
 
         String line;
         //Pfad abändern, ist nur eine Liste mit Namen
-        FileReader fileReader = new FileReader("D:\\IntelliJ_java_projecte\\CS_GUI\\namen.txt");
+        FileReader fileReader = new FileReader("C:\\Users\\Fuse\\Desktop\\CS_GUI\\namen.txt");
         BufferedReader liste = new BufferedReader(fileReader);
 
         nachricht = in.nextLine();
@@ -98,7 +97,6 @@ public class Server
     }
 
 
-
     private void erstelleAusgabe(String text)
     {
         SimpleDateFormat formatter = new SimpleDateFormat ("yyyy.MM.dd 'at' HH:mm:ss ");
@@ -129,7 +127,7 @@ public class Server
         ServerSocket server = new ServerSocket(port);
 
         boolean ende = false;
-        Server newserver = new Server(); //Schnittstelle zur "erstelleAusgabe"
+        Server newserver = new Server();
         newserver.erstelleAusgabe("Server wurde gestartet!");
 
         while(!ende)
@@ -197,7 +195,5 @@ public class Server
             }
         }
     }
-
-
 
 }

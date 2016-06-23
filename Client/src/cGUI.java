@@ -47,10 +47,7 @@ public class cGUI extends JFrame implements ActionListener, KeyListener, WindowL
         frame.setVisible(true);
         frame.setSize(600, 400);
         clientAusgabe.append("Willkommen\n\n");
-        //eingabeFeld.requestFocus();
-
     }
-
 
     void append(String text)
     {
@@ -63,7 +60,6 @@ public class cGUI extends JFrame implements ActionListener, KeyListener, WindowL
     void connectionFailed()
     {
         clientButton.setEnabled(true);
-//        connected = false;
     }
 
     public void ausgabe(String text)
@@ -104,9 +100,6 @@ public class cGUI extends JFrame implements ActionListener, KeyListener, WindowL
                 return;
             }
 
-            //connected = true;
-            //aktiv = true;
-
             // disable login button
             clientButton.setEnabled(false);
             // disable the Server and Port JTextField
@@ -117,24 +110,12 @@ public class cGUI extends JFrame implements ActionListener, KeyListener, WindowL
             //eingabeFeld.addActionListener(this);
             //test.addActionListener(this);
         }
-        if(o == test)
+        if(o == test) //der knopf "Button" zieht den Text rein, macht das selbe wie Enter drücken
         {
             String msg2 = eingabeFeld.getText();
             clientAusgabe.append(msg2 +"\n");
-            //aktiv = true;
+
             client.start();
-            //notifyAll();
-
-//            try
-//            {
-//                System.in.read();
-//            } catch (IOException e1)
-//            {
-//                e1.printStackTrace();
-//            }
-
-            //out.println(msg1);
-            //eingabeFeld.setText("");
         }
     }
 
@@ -145,8 +126,6 @@ public class cGUI extends JFrame implements ActionListener, KeyListener, WindowL
         if (e.getKeyCode() == KeyEvent.VK_ENTER)
         {
             client.start();
-            //clientAusgabe.append("ohmann");
-            //System.exit(0);
         }
     }
 
@@ -154,7 +133,6 @@ public class cGUI extends JFrame implements ActionListener, KeyListener, WindowL
     }
     public void keyTyped(KeyEvent e) {
     }
-
 
 
     // Window-Listener-Methoden
@@ -178,14 +156,9 @@ public class cGUI extends JFrame implements ActionListener, KeyListener, WindowL
 
 
 
-
-
     public static void main(String[] args)
     {
         new cGUI();
     }
-
-
-
 
 }

@@ -100,7 +100,7 @@
         </constraints>
         <properties>
           <enabled value="true"/>
-          <text value="1"/>
+          <text value="Hallo"/>
         </properties>
       </component>
       <component id="e5764" class="javax.swing.JButton" binding="test">
